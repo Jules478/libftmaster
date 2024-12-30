@@ -6,7 +6,7 @@
 #    By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/07 15:11:53 by mpierce           #+#    #+#              #
-#    Updated: 2024/12/06 17:42:25 by mpierce          ###   ########.fr        #
+#    Updated: 2024/12/12 17:55:56 by mpierce          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,24 +29,28 @@ OBJECTS = $(SOURCES:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 
 GREEN = \e[1;32m
+PURPLE = \e[1;35m
 RESET = \033[0m
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	@ar -r $@ $? > /dev/null 2>&1
-	@echo "$(GREEN) \nCompilation Complete\n$(RESET)"
+	@echo "$(GREEN) \nLIBFT Compilation Complete\n$(RESET)"
+	@echo "$(PURPLE)------------------------------------$(RESET)"
 
 %.o: %.c
 	@cc -c $(CFLAGS) $?
 
 clean:
 	@rm -f $(OBJECTS)
-	@echo "$(GREEN) \nObject Files Cleaned\n$(RESET)"
+	@echo "$(GREEN) \nLIBFT Object Clean Complete\n$(RESET)"
+	@echo "$(PURPLE)------------------------------------$(RESET)"
 	
 fclean: clean
 	@rm -f $(NAME)
-	@echo "$(GREEN) \nFull Clean Complete\n$(RESET)"
+	@echo "$(GREEN) \nLIBFT File Clean Complete\n$(RESET)"
+	@echo "$(PURPLE)------------------------------------$(RESET)"
 
 re: fclean all
 
