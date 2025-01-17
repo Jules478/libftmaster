@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:39:52 by mpierce           #+#    #+#             */
-/*   Updated: 2024/12/06 16:46:12 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/01/17 15:33:33 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ int		print_prcnt(void);
 int		print_char(int c);
 int		print_str(char *str);
 int		print_int(int n);
+void	free_array(char ***arr);
 
 #endif
