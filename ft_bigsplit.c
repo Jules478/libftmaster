@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:41:13 by mpierce           #+#    #+#             */
-/*   Updated: 2025/02/06 12:16:57 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/02/06 12:37:26 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	wordcount(char const *s, char *c)
 	in_quotes = 0;
 	while (s[i])
 	{
-		if (s[i] == '"' || s[i] == '\'') 
+		if (s[i] == '"' || s[i] == '\'')
 			in_quotes = !in_quotes;
 		if (!ft_strchr(c, s[i]) && trigger == 0 && !in_quotes)
 		{
@@ -50,7 +50,7 @@ static char	*makeword(const char *s, int start, int end)
 		return (NULL);
 	while (start < end)
 	{
-		if (s[i] == '"' || s[i] == '\'') 
+		if (s[i] == '"' || s[i] == '\'')
 			start++;
 		word[i] = s[start];
 		i++;
@@ -77,14 +77,14 @@ static char	**ft_split2(char **split, char const *s, char *c, int index)
 {
 	size_t	i;
 	size_t	j;
-	int	in_quotes;
+	int		in_quotes;
 
 	i = 0;
 	j = 0;
 	in_quotes = 0;
 	while (i <= ft_strlen(s))
 	{
-		if (s[i] == '"' || s[i] == '\'') 
+		if (s[i] == '"' || s[i] == '\'')
 			in_quotes = !in_quotes;
 		if (!ft_strchr(c, s[i]) && index < 0)
 			index = i;

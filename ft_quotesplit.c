@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:35:56 by mpierce           #+#    #+#             */
-/*   Updated: 2025/02/03 17:54:00 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/02/06 12:36:54 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	wordcount(char const *s, char c)
 	in_quotes = 0;
 	while (s[i])
 	{
-		if (s[i] == '"' || s[i] == '\'') 
+		if (s[i] == '"' || s[i] == '\'')
 			in_quotes = !in_quotes;
 		if (s[i] != c && trigger == 0 && !in_quotes)
 		{
@@ -50,14 +50,14 @@ static char	*makeword(const char *s, int start, int end)
 		return (NULL);
 	while (start < end)
 	{
-		if (s[start] == '"' || s[start] == '\'') 
+		if (s[start] == '"' || s[start] == '\'')
 			start++;
-        else
-        {
-		    word[i] = s[start];
-		    i++;
-		    start++;
-        }
+		else
+		{
+			word[i] = s[start];
+			i++;
+			start++;
+		}
 	}
 	word[i] = 0;
 	return (word);
@@ -80,14 +80,14 @@ static char	**ft_split2(char **split, char const *s, char c, int index)
 {
 	size_t	i;
 	size_t	j;
-	int	in_quotes;
+	int		in_quotes;
 
 	i = 0;
 	j = 0;
 	in_quotes = 0;
 	while (i <= ft_strlen(s))
 	{
-		if (s[i] == '"' || s[i] == '\'') 
+		if (s[i] == '"' || s[i] == '\'')
 			in_quotes = !in_quotes;
 		if (s[i] != c && index < 0)
 			index = i;
@@ -98,7 +98,7 @@ static char	**ft_split2(char **split, char const *s, char c, int index)
 				return (arrclean(split, j));
 			index = -1;
 		}
-        i++;
+		i++;
 	}
 	split[j] = 0;
 	return (split);
