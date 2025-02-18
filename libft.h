@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:39:52 by mpierce           #+#    #+#             */
-/*   Updated: 2025/02/06 11:58:42 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/02/17 17:50:41 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # ifndef FORMATS
 #  define FORMATS "diuxXscp%"
 # endif
+
+# define GNL_ERROR (char *)-1
 
 # include <stddef.h>
 # include <limits.h>
@@ -94,5 +96,13 @@ void	free_array(char ***arr);
 int		ft_strcmp(char *s1, const char *s2);
 char	**ft_quotesplit(const char *s, char c);
 char	**ft_bigsplit(char const *s, char *c);
+int		ft_dprintf(int fd, const char *format, ...);
+int		dprint_uint(unsigned int n, int fd);
+int		dprint_int(int n, int fd);
+int		dprint_prcnt(int fd);
+int		dprint_char(int c, int fd);
+int		dprint_str(char *str, int fd);
+int		dprint_ptr(unsigned long int n, int fd);
+int		dprint_hex(unsigned int n, char format, int fd);
 
 #endif

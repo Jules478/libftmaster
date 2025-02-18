@@ -6,12 +6,12 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:35:56 by mpierce           #+#    #+#             */
-/*   Updated: 2025/02/06 12:36:54 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/02/17 17:33:54 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
+// remake this with a struct
 static int	wordcount(char const *s, char c)
 {
 	int	i;
@@ -25,7 +25,7 @@ static int	wordcount(char const *s, char c)
 	in_quotes = 0;
 	while (s[i])
 	{
-		if (s[i] == '"' || s[i] == '\'')
+		if (s[i] == '"' || s[i] == '\'') // make check for matching quotes
 			in_quotes = !in_quotes;
 		if (s[i] != c && trigger == 0 && !in_quotes)
 		{

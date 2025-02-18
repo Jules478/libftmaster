@@ -1,46 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_types.c                                     :+:      :+:    :+:   */
+/*   dprintf_types.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:33:37 by mpierce           #+#    #+#             */
-/*   Updated: 2025/02/18 13:26:44 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/02/18 13:27:00 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	print_str(char *str)
+int	dprint_str(char *str, int fd)
 {
 	int	count;
 
 	count = 0;
 	if (!str)
-		return (write(1, "(null)", 6));
-	count = write(1, str, ft_strlen(str));
+		return (write(fd, "(null)", 6));
+	count = write(fd, str, ft_strlen(str));
 	return (count);
 }
 
-int	print_char(int c)
+int	dprint_char(int c, int fd)
 {
-	return (write(1, &c, 1));
+	return (write(fd, &c, 1));
 }
 
-int	print_prcnt(void)
+int	dprint_prcnt(int fd)
 {
-	return (write(1, "%", 1));
+	return (write(fd, "%", 1));
 }
 
-int	print_int(int n)
+int	dprint_int(int n, int fd)
 {
 	int		length;
 	char	*number;
 
 	length = 0;
 	number = ft_itoa(n);
-	length = print_str(number);
+	length = dprint_str(number, fd);
 	free(number);
 	return (length);
 }

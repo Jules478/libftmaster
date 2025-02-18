@@ -6,115 +6,75 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:50:29 by mpierce           #+#    #+#             */
-/*   Updated: 2024/12/06 16:37:07 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/02/18 15:03:24 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*freeresult(char *buffer1, char *buffer2)
+static size_t	next_line(char	*buffer)
 {
-	char	*tempbuffer;
+	size_t	i;
 
-	tempbuffer = ft_strjoin(buffer1, buffer2);
-	free(buffer1);
-	return (tempbuffer);
-}
-
-char	*read_file(int fd, char *buffer)
-{
-	char	*result;
-	int		bytes;
-
-	if (!buffer)
-		buffer = ft_calloc(1, 1);
-	result = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (!result)
-		return (NULL);
-	bytes = 1;
-	while (bytes > 0)
+	i = 0;
+	while (i < BUFFER_SIZE && buffer[i])
 	{
-		bytes = read(fd, result, BUFFER_SIZE);
-		if (bytes == -1)
-		{
-			free(result);
-			free(buffer);
-			return (NULL);
-		}
-		result[bytes] = 0;
-		buffer = freeresult(buffer, result);
-		if (ft_strchr(result, '\n'))
+		i++;
+		if (buffer[i - 1] == '\n')
 			break ;
 	}
-	free(result);
-	return (buffer);
+	return (i);
 }
 
-char	*next_line(char *buffer)
+static char	*update(char *line, char *buffer)
 {
-	char	*newline;
-	int		i;
+	char	*str;
+	size_t	line_len;
+	size_t	buffer_len;
+	size_t	total_len;
 
-	i = 0;
-	if (!buffer[i])
+	buffer_len = next_line(buffer);
+	line_len = 0;
+	if (line)
+		line_len = ft_strlen(line);
+	total_len = line_len + buffer_len;
+	str = malloc((total_len + 1) * sizeof(char));
+	if (!str)
 		return (NULL);
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	newline = ft_calloc((i + 2), sizeof(char));
-	if (!newline)
-		return (NULL);
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-	{
-		newline[i] = buffer[i];
-		i++;
-	}
-	if (buffer[i] && buffer[i] == '\n')
-		newline[i] = '\n';
-	newline[i + 1] = 0;
-	return (newline);
-}
-
-char	*update_buffer(char *buffer)
-{
-	int		i;
-	int		j;
-	char	*newbuffer;
-
-	i = 0;
-	j = 0;
-	if (!buffer)
-		return (NULL);
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	if (!buffer[i])
-	{
-		free(buffer);
-		return (NULL);
-	}
-	newbuffer = ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
-	i++;
-	while (buffer[i])
-	{
-		newbuffer[j] = buffer[i];
-		i++;
-		j++;
-	}
-	free(buffer);
-	return (newbuffer);
+	ft_memmove(str, line, line_len);
+	ft_memmove(str + line_len, buffer, buffer_len);
+	ft_bzero(buffer, buffer_len);
+	str[total_len] = 0;
+	ft_memmove(buffer, buffer + buffer_len, BUFFER_SIZE - buffer_len);
+	ft_bzero(buffer + BUFFER_SIZE - buffer_len, buffer_len);
+	free(line);
+	return (str);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[OPEN_MAX];
-	char		*nextline;
+	static char	buffer[OPEN_MAX][BUFFER_SIZE + 1];
+	char		*line;
+	int			read_len;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
-		return (NULL);
-	buffer[fd] = read_file(fd, buffer[fd]);
-	if (!buffer[fd])
-		return (NULL);
-	nextline = next_line(buffer[fd]);
-	buffer[fd] = update_buffer(buffer[fd]);
-	return (nextline);
+	line = NULL;
+	while (1)
+	{
+		if (!buffer[fd][0])
+		{
+			read_len = read(fd, buffer[fd], BUFFER_SIZE);
+			if (read_len < 0)
+				break ;
+			if (!buffer[fd][0])
+				return (line);
+			buffer[fd][read_len] = 0;
+		}
+		line = update(line, buffer[fd]);
+		if (!line)
+			return (GNL_ERROR);
+		if (line[ft_strlen(line) - 1] == '\n')
+			return (line);
+	}
+	free(line);
+	return (NULL);
 }

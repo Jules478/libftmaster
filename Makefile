@@ -6,7 +6,7 @@
 #    By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/07 15:11:53 by mpierce           #+#    #+#              #
-#    Updated: 2025/02/04 12:23:29 by mpierce          ###   ########.fr        #
+#    Updated: 2025/02/18 15:04:13 by mpierce          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,12 @@ SOURCES = \
 	  ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstadd_back_bonus.c \
 	  ft_lstlast_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c \
 	  ft_lstmap_bonus.c get_next_line_bonus.c ft_printf.c printf_hex.c printf_ptr.c \
-	  printf_types.c printf_uint.c free_array.c ft_quotesplit.c ft_bigsplit.c ft_strcmp.c
+	  printf_types.c printf_uint.c free_array.c ft_quotesplit.c ft_bigsplit.c ft_strcmp.c \
+	  ft_dprintf.c dprintf_hex.c dprintf_ptr.c dprintf_types.c dprintf_uint.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 GREEN = \e[1;32m
 PURPLE = \e[1;35m
@@ -53,5 +54,10 @@ fclean: clean
 	@echo "$(PURPLE)------------------------------------$(RESET)"
 
 re: fclean all
+
+full: re
+	@rm -f $(OBJECTS)
+	@echo "$(GREEN) \nLIBFT Object Clean Complete\n$(RESET)"
+	@echo "$(PURPLE)------------------------------------$(RESET)"
 
 .PHONY: all clean fclean re
